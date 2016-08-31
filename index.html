@@ -1,0 +1,126 @@
+﻿<!DOCTYPE html>
+<!--
+   
+   
+   
+   @@@@  @@@@     @     @@@@        @@   @@ @@@@  @
+   @   @ @       @ @    @   @       @ @ @ @ @     @
+   @@@@  @@@@   @@@@@   @   @       @  @  @ @@@@  @
+   @ @   @     @     @  @   @       @     @ @     
+   @  @  @@@@ @       @ @@@@        @     @ @@@@  @
+   
+   I created this app when I started my MSc project in Chemistry in October 2015.
+   The app was found to be very useful by me and friends working in the laboratory as it makes necessary synthetic calculations done in a fraction of a second.
+   I designed it so as adding new functionalities is easy, by accessing the elements of the generated array of compositions.
+   
+   This is my second project involving a MVC framework. This time I used the most popular one: Angular.JS.
+   -->
+
+
+<html lang="EN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Mixed composition materials calculator">
+	<meta name="keywords" content="">
+	<meta http-equiv="content-language" lang="en">
+ 
+
+	<link rel="stylesheet" type="text/css" href="SynthWebApp.css">
+	<link href='https://fonts.googleapis.com/css?family=Lato:700' rel='stylesheet' type='text/css'>
+	<script type="text/javascript" src="jquery-2.1.4.js"></script>
+	
+	<title>Synth Web App</title>
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+ 
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+	<!-- Angular.js -->
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+
+ <script type="text/javascript" src="synthModule.js"></script>
+ <script type="text/javascript" src="synthCtrl.js"></script>
+ <script type="text/javascript" src="synthService.js"></script>
+ 
+</head>
+  
+  
+<body class="first">
+
+<div class="container">
+	<div class="row">
+		<header>
+			<div class="col-md-4 col-sm-5 title">
+				<h1>MIXED COMPOSITION CALCULATOR</h1>
+			</div>
+			<div class="col-md-4 col-sm-4 subtitle">
+				<h3>for major 3d metals used in functional materials design</h3>
+			</div>
+		</header>
+	</div>
+	<div class="row content">
+		<div  ng-app="synthApp" ng-controller="synthCtrl">
+			<div class="col-md-1 col-md-offset-4 col-sm-2 col-sm-offset-2 col-xs-2 choice">
+				<nav>
+					<ul class="list-unstyled" title="Click to activate element, double click to deactivate">
+						<li id="mn"><div ng-click="selectedMetals[0] = 6;" ng-Dblclick="selectedMetals[0] = 0;" onclick="$('#mn').css('background-color','pink');" ondblclick="$('#mn').css('background-color','');"><sup>25</sup>Mn</div></li>
+						<li id="fe"><div ng-click="selectedMetals[1] = 6;" ng-Dblclick="selectedMetals[1] = 0;" onclick="$('#fe').css('background-color','darkseagreen');" ondblclick="$('#fe').css('background-color','');"><sup>26</sup>Fe</div></li>
+						<li id="co"><div ng-click="selectedMetals[2] = 6;" ng-Dblclick="selectedMetals[2] = 0;" onclick="$('#co').css('background-color','magenta');" ondblclick="$('#co').css('background-color','');"><sup>27</sup>Co</div></li>
+						<li id="ni"><div ng-click="selectedMetals[3] = 6;" ng-Dblclick="selectedMetals[3] = 0;" onclick="$('#ni').css('background-color','lime');" ondblclick="$('#ni').css('background-color','');"><sup>28</sup>Ni</div></li>
+					</ul>
+				</nav>
+			</div>
+
+		
+			<div ng-show="controlSum > 0" class="col-md-6 col-sm-7 col-sm-offset-1 col-xs-10 col-xs-offset-1 results">
+				<section>
+					Require:
+						<ul class="list-unstyled">
+							<li ng-if="selectedMetals[0]!=0">{{11/600*197.9*compositions.length/controlSum*selectedMetals[0]|number:1}} mg MnCl<sub>2</sub> *4 H<sub>2</sub>O dissolved in {{55/150*compositions.length/controlSum*selectedMetals[0]|number:2}} ml of solvent</li>
+							<li ng-if="selectedMetals[1]!=0">{{11/600*198.8*compositions.length/controlSum*selectedMetals[1]|number:1}} mg FeCl<sub>2</sub> *4 H<sub>2</sub>O dissolved in {{55/150*compositions.length/controlSum*selectedMetals[1]|number:2}} ml of solvent</li>
+							<li ng-if="selectedMetals[2]!=0">{{11/600*237.9*compositions.length/controlSum*selectedMetals[2]|number:1}} mg CoCl<sub>2</sub> *6 H<sub>2</sub>O dissolved in {{55/150*compositions.length/controlSum*selectedMetals[2]|number:2}} ml of solvent</li>
+							<li ng-if="selectedMetals[3]!=0">{{11/600*237.7*compositions.length/controlSum*selectedMetals[3]|number:1}} mg NiCl<sub>2</sub> *6 H<sub>2</sub>O dissolved in {{55/150*compositions.length/controlSum*selectedMetals[3]|number:2}} ml of solvent</li>
+						</ul>
+					Now, compositions:
+					<ol>
+						<li ng-repeat="composition in compositions">
+							<span ng-if="composition.amountMn!=0">Mn<sub>{{composition.amountMn}}</sub> </span>
+							<span ng-if="composition.amountFe!=0">Fe<sub>{{composition.amountFe}}</sub> </span>
+							<span ng-if="composition.amountCo!=0">Co<sub>{{composition.amountCo}}</sub> </span>
+							<span ng-if="composition.amountNi!=0">Ni<sub>{{composition.amountNi}}</sub> </span>
+								<ul class="list-unstyled">
+									<li ng-if="composition.amountMn!=0">{{composition.amountMn*5/15|number:3}} ml Mn solution </li>
+									<li ng-if="composition.amountFe!=0">{{composition.amountFe*5/15|number:3}} ml Fe solution </li>
+									<li ng-if="composition.amountCo!=0">{{composition.amountCo*5/15|number:3}} ml Co solution </li>
+									<li ng-if="composition.amountNi!=0">{{composition.amountNi*5/15|number:3}} ml Ni solution </li>
+								</ul>
+						</li>
+					</ol>
+				</section>
+			</div>	
+		</div>
+	</div>	
+	
+
+	<div class="row">
+		<div class="col-md-3 col-sm-4 col-xs-6 contact">
+			<footer>
+				<a href="https://wnogas.firebaseapp.com/" title="About me"><span class="glyphicon glyphicon-envelope"></span></a>
+				<p>WNogas 2015 for Inorganic Molecular Materials Group, Krakow, Poland</p>
+			</footer>
+		</div>
+	</div>
+</div>
+
+</body>
+</html>

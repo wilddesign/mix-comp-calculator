@@ -1,0 +1,56 @@
+	html{
+		background-color:lightgrey;
+	}
+	body.first{
+		background-image:linear-gradient(grey 70%,lightgrey 100%);
+		font-family: 'Lato', sans-serif;
+	}
+
+
+/*///////////////////////////////////////////////////////////////*/
+/*  header style*/
+
+	.title{
+		border-right:solid 3px gold;
+		text-align:right;
+	}
+
+	.subtitle{
+		color: lightgrey;
+		text-align:left;
+	}
+/*///////////////////////////////////////////////////////////////*/
+/*  main app style*/
+
+	.content{
+		border-top:solid 3px gold;
+	}
+
+	.choice ul{
+		display:inline-block;
+		float:left;
+	}
+
+	.choice ul li{
+		border-radius:20px;
+		border:solid 4px gold;
+		cursor:grab;
+		display:block;
+		font-size:20px;
+		font-weight:bold;
+		margin:10px;
+		padding:5px;
+	}
+/*///////////////////////////////////////////////////////////////*/
+
+/*footer style*/
+	.contact{
+		border-left:solid 10px grey;
+	}
+	.contact a,a:hover,a:active{
+		color:grey !important;
+		font-size:30px;
+		text-align:right;
+	}
+
+
